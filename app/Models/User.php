@@ -19,7 +19,15 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'photo',
+        'industrie',
+        'titre',
         'email',
+        'poste',
+        'tel',
+        'adresse',
+        'description',
+        'role',
         'password',
     ];
 
@@ -42,4 +50,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getPhotoUrlAttribute()
+    {
+        return $this->photo ? asset('img/' . $this->photo) : null;
+    }
 }
