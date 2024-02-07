@@ -18,4 +18,9 @@ class Emploi extends Model
         'emplacement',
         'user_id',
     ];
+
+    public function entreprise()
+{
+    return $this->belongsTo(User::class, 'user_id');
+}
 }

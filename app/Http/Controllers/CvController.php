@@ -41,7 +41,7 @@ class CvController extends Controller
                 'user_id' => $user->id,
             ]);
     
-            return redirect()->route('success.route'); 
+            return redirect()->route('cvs'); 
     
         } catch (\Exception $e) {
            

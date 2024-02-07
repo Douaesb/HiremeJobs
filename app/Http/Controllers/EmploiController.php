@@ -14,8 +14,10 @@ use App\Models\Emploi;
 class EmploiController extends Controller
 {
 
-    public function publishOffer(){
-        return view('entreprise.offre');
+    public function publishOffer()
+    {
+        $offers = Emploi::with('entreprise')->get();
+        return view('entreprise.offre', ['offers' => $offers]);
     }
 
     public function storePublishOffer(Request $request): RedirectResponse
@@ -29,25 +31,24 @@ class EmploiController extends Controller
                 'type_contrat' => ['required', 'string', 'in:a distance,hybride,a temps plein'],
                 'emplacement' => ['required', 'string'],
             ]);
-    
+
             $competencesJson = json_encode($request->input('competences'));
-    
-            $user = Auth::user(); 
-    
+
+            $user = Auth::user();
+
             Emploi::create([
                 'nom' => $request->nom,
                 'titre' => $request->titre,
                 'description' => $request->description,
-                'competences' => $competencesJson, 
+                'competences' => $competencesJson,
                 'type_contrat' => $request->type_contrat,
                 'emplacement' => $request->emplacement,
                 'user_id' => $user->id,
             ]);
-    
-            return redirect()->route('success.route'); 
-    
+
+            return redirect()->route('jobs');
         } catch (\Exception $e) {
-           
+
             dd($e->getMessage());
         }
     }
