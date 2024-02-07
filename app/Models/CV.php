@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class CV extends Model
 {
     use HasFactory;
+
+    protected $table = 'cvs';
+    
+    protected $fillable = [
+        'competences',
+        'experiences',
+        'cursus',
+        'langues',
+        'user_id',
+    ];
 }

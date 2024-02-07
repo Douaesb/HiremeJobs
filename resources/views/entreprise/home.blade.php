@@ -7,11 +7,6 @@
                     {{ __("You're logged in!") }}
                 </div>
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    @if ($user->photo)
-                        <img src="{{ $user->photo }}" alt="User Photo">
-                    @else
-                        <p>No photo available</p>
-                    @endif
                 </div>
             </div>
         </div>

@@ -11,8 +11,5 @@ class Cherheur extends User
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public function displayProfile(){
-        
-    }
-
+  
 }

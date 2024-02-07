@@ -11,13 +11,22 @@
                 </div>
 
                 <!-- Navigation Links -->
+                
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('home') }}
                     </x-nav-link>
+                    @auth
+                    @if(auth()->user()->role === 'entreprise')
                     <x-nav-link :href="route('jobs')" :active="request()->routeIs('jobs')">
                         {{ __('Job Offers') }}
                     </x-nav-link>
+                    @elseif(auth()->user()->role === 'chercheur')
+                    <x-nav-link :href="route('cvs')" :active="request()->routeIs('cvs')">
+                        {{ __('Curriculum Vitae') }}
+                    </x-nav-link>
+                    @endif
+                    @endauth
                 </div>
             </div>
 

@@ -11,16 +11,5 @@ class Entreprise extends User
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public function publishOffer(){
-
-    }
-
-    public function searchEntreprise(){
-
-    }
-
-    public function displayCandidats(){
-
-    }
 
 }

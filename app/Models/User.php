@@ -51,8 +51,4 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function getPhotoUrlAttribute()
-    {
-        return $this->photo ? asset('img/' . $this->photo) : null;
-    }
 }

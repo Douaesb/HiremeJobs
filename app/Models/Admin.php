@@ -11,8 +11,6 @@ class Admin extends User
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public function archiveEUO(){
-        
-    }
+   
 
 }

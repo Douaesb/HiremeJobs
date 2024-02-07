@@ -32,23 +32,22 @@ class EmploiController extends Controller
     
             $competencesJson = json_encode($request->input('competences'));
     
-            $user = Auth::user(); // Assuming you are using authentication
+            $user = Auth::user(); 
     
-            // Create the job offer
             Emploi::create([
                 'nom' => $request->nom,
                 'titre' => $request->titre,
                 'description' => $request->description,
-                'competences' => $competencesJson, // Use the encoded value
+                'competences' => $competencesJson, 
                 'type_contrat' => $request->type_contrat,
                 'emplacement' => $request->emplacement,
                 'user_id' => $user->id,
             ]);
     
-            return redirect()->route('success.route'); // Replace 'success.route' with the actual route name or URL
+            return redirect()->route('success.route'); 
     
         } catch (\Exception $e) {
-            // Log or dd($e->getMessage()) to see the exception message
+           
             dd($e->getMessage());
         }
     }
