@@ -28,7 +28,7 @@ Route::get('/dashboard', function () {
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
-Route::get('/jobs', [EmploiController::class, 'publishOffer'])->name('jobs');
+Route::get('/jobs', [EmploiController::class, 'publishOffer'])->middleware(['auth', 'entreprise'])->name('jobs');
 Route::post('/jobs', [EmploiController::class, 'storePublishOffer'])->name('jobs.store');
 
 
