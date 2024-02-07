@@ -2,17 +2,75 @@
     @extends('layouts.master')
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-
+            <!-- Check for error flash message -->
+            @if (session('error'))
+                <div class="max-w-7xl mx-auto mb-4">
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                        <strong class="font-bold">Error!</strong>
+                        <span class="block sm:inline">{{ session('error') }}</span>
+                    </div>
+                </div>
+            @endif
+            <div class="bg-white w-fit dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100 gap-2 flex ">
                     <!-- Modal toggle -->
                     <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                         class="block text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         type="button">
-                        Creer un cv
+                        Creer votre Cv
                     </button>
+                    <button onclick="toggleCVCard()"
+                        class="block text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Voir Votre Cv
+                    </button>
+                    <a href="{{ route('downloadCv') }}" 
+                    class="block text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Télécharger Votre CV (PDF)
+                    </a>
                 </div>
+            </div>
 
+            <div class="flex justify-center" >
+                <div class="mt-4 bg-white w-96 h-96 rounded-lg h-full hidden" id="CvCard">
+                    <div class="flex p-2 gap-1">
+                        <div class="">
+                            <span class="bg-blue-500 inline-block center w-3 h-3 rounded-full"></span>
+                        </div>
+                        <div class="circle">
+                            <span class="bg-purple-500 inline-block center w-3 h-3 rounded-full"></span>
+                        </div>
+                        <div class="circle">
+                            <span class="bg-pink-500 box inline-block center w-3 h-3 rounded-full"></span>
+                        </div>
+                    </div>
+                    <div class="p-2">
+                        <h2 class="text-2xl font-bold mb-4 flex justify-center text-purple-600 underline">Your CV</h2>
+                        <h3 class="text-xl font-bold text-pink-500">Competences:</h3>
+                        <ul class="p-4">
+                            @foreach (json_decode($cv->competences) as $competence)
+                                <li class="list-disc p-1">{{ $competence }}</li>
+                            @endforeach
+                        </ul>
+                        <h3 class="text-xl font-bold text-blue-500">Experiences:</h3>
+                        <ul class="p-4">
+                            @foreach (json_decode($cv->experiences) as $experience)
+                                <li class="list-disc p-1">{{ $experience }}</li>
+                            @endforeach
+                        </ul>
+                        <h3 class="text-xl font-bold text-purple-500">Cursus:</h3>
+                        <ul class="p-4">
+                            @foreach (json_decode($cv->cursus) as $cursuss)
+                                <li class="list-disc p-1">{{ $cursuss }}</li>
+                            @endforeach
+                        </ul>
+                        <h3 class="text-xl font-bold text-pink-500">Langues:</h3>
+                        <ul class="p-4">
+                            @foreach (json_decode($cv->langues) as $langue)
+                                <li class="list-disc p-1">{{ $langue }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -143,8 +201,9 @@
         function addInputCompetences() {
             var newInput = document.createElement("input");
             newInput.type = "text";
-            newInput.name = "competences[]"; 
-            newInput.className = "bg-gray-50 border border-gray-300 text-gray-900 text-sm  mb-2 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-80 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500";
+            newInput.name = "competences[]";
+            newInput.className =
+                "bg-gray-50 border border-gray-300 text-gray-900 text-sm  mb-2 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-80 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500";
             newInput.placeholder = "Entrer les competences";
             document.getElementById("competences").parentNode.appendChild(newInput);
         }
@@ -152,8 +211,9 @@
         function addInputExperiences() {
             var newInput = document.createElement("input");
             newInput.type = "text";
-            newInput.name = "experiences[]"; 
-            newInput.className = "bg-gray-50 border border-gray-300 text-gray-900 text-sm  mb-2 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-80 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500";
+            newInput.name = "experiences[]";
+            newInput.className =
+                "bg-gray-50 border border-gray-300 text-gray-900 text-sm  mb-2 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-80 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500";
             newInput.placeholder = "Entrer les experiences";
             document.getElementById("experiences").parentNode.appendChild(newInput);
         }
@@ -161,20 +221,28 @@
         function addInputCursus() {
             var newInput = document.createElement("input");
             newInput.type = "text";
-            newInput.name = "cursus[]"; 
-            newInput.className = "bg-gray-50 border border-gray-300 text-gray-900 text-sm  mb-2 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-80 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500";
+            newInput.name = "cursus[]";
+            newInput.className =
+                "bg-gray-50 border border-gray-300 text-gray-900 text-sm  mb-2 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-80 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500";
             newInput.placeholder = "Entrer le cursus";
             document.getElementById("cursus").parentNode.appendChild(newInput);
         }
+
         function addInputLangues() {
             var newInput = document.createElement("input");
             newInput.type = "text";
-            newInput.name = "langues[]"; 
-            newInput.className = "bg-gray-50 border border-gray-300 text-gray-900 text-sm  mb-2 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-80 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500";
+            newInput.name = "langues[]";
+            newInput.className =
+                "bg-gray-50 border border-gray-300 text-gray-900 text-sm  mb-2 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-80 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500";
             newInput.placeholder = "Entrer les langues ";
             document.getElementById("langues").parentNode.appendChild(newInput);
         }
+
+        function toggleCVCard() {
+            var cvCard = document.getElementById('CvCard');
+            cvCard.classList.toggle('hidden');
+        }
     </script>
-    
+
 
 </x-app-layout>

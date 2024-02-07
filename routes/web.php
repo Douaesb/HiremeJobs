@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EmploiController;
 use App\Http\Controllers\CvController;
+use App\Http\Controllers\ChercheurController;
+
+use App\Http\Middleware\Chercheur;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +36,12 @@ Route::post('/jobs', [EmploiController::class, 'storePublishOffer'])->name('jobs
 
 Route::get('/cvs', [CvController::class, 'createCV'])->middleware(['auth', 'chercheur'])->name('cvs');
 Route::post('/cvs', [CvController::class, 'storeCV'])->name('cvs.store');
+Route::get('/download', [CVController::class, 'downloadCv'])->middleware(['auth', 'chercheur'])->name('downloadCv');
+
+
+Route::get('/about', [ChercheurController::class, 'about'])->middleware(['auth', 'chercheur'])->name('about');
+
+
 
 
 Route::get('/archive', [HomeController::class, 'archive'])->middleware(['auth', 'admin'])->name('archive');

@@ -25,6 +25,9 @@
                     <x-nav-link :href="route('cvs')" :active="request()->routeIs('cvs')">
                         {{ __('Curriculum Vitae') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('about')" :active="request()->routeIs('about')">
+                        {{ __('A propos') }}
+                    </x-nav-link>
                     @endif
                     @endauth
                 </div>

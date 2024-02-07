@@ -18,4 +18,9 @@ class CV extends Model
         'langues',
         'user_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
