@@ -30,10 +30,12 @@ HireMe souhaite développer une plateforme d'emploi permettant aux utilisateurs 
   ## Technologies Utilisées
 
 - Laravel (framework PHP)
+- Eloquent ORM
 - HTML5
-- CSS (Bootstrap for styling)
+- Blade
+- CSS (tailwind for styling)
 - JavaScript
-- MySQL (ou tout autre système de gestion de base de données pris en charge)
+- MySQL 
 
 ## Configuration et Installation
 
