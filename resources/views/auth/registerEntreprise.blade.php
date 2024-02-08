@@ -71,12 +71,23 @@
                 required autofocus autocomplete="industrie" />
             <x-input-error :messages="$errors->get('industrie')" class="mt-2" />
         </div>
-         <!-- description -->
+         {{-- <!-- description -->
          <div class="mt-4">
             <x-input-label for="description" :value="__('Description')" />
             <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" :value="old('description')"
                 required autofocus autocomplete="description" />
             <x-input-error :messages="$errors->get('description')" class="mt-2" />
+        </div> --}}
+
+        <div class="col-span-2">
+            <label for="description" :value="__('Description')" 
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Description</label>
+            <textarea id="description" rows="4" name="description" :value="old('description')" required autofocus autocomplete="description"
+                class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Entrer description d'emploi ici"></textarea>
+            <x-input-error :messages="$errors->get('description')" class="mt-2" />
+
         </div>
 
 

@@ -94,7 +94,17 @@
             <x-input-error :messages="$errors->get('tel')" class="mt-2" />
         </div>
 
+{{-- About --}}
+        <div class="col-span-2">
+            <label for="about" :value="__('About')" 
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                about</label>
+            <textarea id="description" rows="4" name="description" :value="old('description')" required autofocus autocomplete="description"
+                class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Entrer description ici"></textarea>
+            <x-input-error :messages="$errors->get('description')" class="mt-2" />
 
+        </div>
 
         <!-- Email Address -->
         <div class="mt-4">
