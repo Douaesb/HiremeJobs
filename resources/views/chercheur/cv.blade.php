@@ -63,6 +63,8 @@
                     </div>
 
             <div class="flex justify-center">
+                @if ($cv)
+
                 <div class="mt-4 bg-white w-96 h-96 rounded-lg h-full hidden" id="CvCard">
                     <div class="flex p-2 gap-1">
                         <div class="">
@@ -103,6 +105,9 @@
                         </ul>
                     </div>
                 </div>
+                @else
+                <p class="text-gray-600">No CV created yet.</p>
+            @endif
             </div>
         </div>
     </div>
