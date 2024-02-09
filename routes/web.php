@@ -30,9 +30,10 @@ Route::get('/dashboard', function () {
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-
+Route::get('/jobOffers', [EmploiController::class, 'publishOfferAll'])->middleware('guest')->name('AllOffers');
 Route::get('/jobs', [EmploiController::class, 'publishOffer'])->middleware(['auth', 'entreprise'])->name('jobs');
 Route::post('/jobs', [EmploiController::class, 'storePublishOffer'])->name('jobs.store');
+
 
 Route::get('/cvs', [CvController::class, 'createCV'])->middleware(['auth', 'chercheur'])->name('cvs');
 Route::post('/cvs', [CvController::class, 'storeCV'])->name('cvs.store');

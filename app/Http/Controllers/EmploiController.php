@@ -14,11 +14,25 @@ use App\Models\Emploi;
 class EmploiController extends Controller
 {
 
-    public function publishOffer()
+    public function publishOfferAll()
     {
-        $offers = Emploi::with('entreprise')->get();
-        return view('entreprise.offre', ['offers' => $offers]);
+        $offers = Emploi::with('entreprise')
+        ->orderBy('created_at', 'desc')
+        ->get();
+        
+        return view('jobOffers', ['offers' => $offers]);
     }
+
+    public function publishOffer()
+{
+    $user = Auth::user();
+
+    $offers = Emploi::with('entreprise')
+        ->where('user_id', $user->id) 
+        ->orderBy('created_at', 'desc')
+        ->get();
+    return view('entreprise.offre', ['offers' => $offers]);
+}
 
     public function storePublishOffer(Request $request): RedirectResponse
     {

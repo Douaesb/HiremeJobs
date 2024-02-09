@@ -15,6 +15,7 @@
     @include('partials.nav')
     <main>
         @yield('home')
+        @yield('jobOffers')
     </main>
     @include('partials.footer')
     {{-- <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script> --}}
