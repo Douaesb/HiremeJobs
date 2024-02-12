@@ -53,7 +53,6 @@ class CvController extends Controller
             return redirect()->route('cvs'); 
     
         } catch (\Exception $e) {
-            // Handle exceptions appropriately
             dd($e->getMessage());
         }
     }

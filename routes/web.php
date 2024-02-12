@@ -31,6 +31,7 @@ Route::get('/dashboard', function () {
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/jobOffers', [EmploiController::class, 'publishOfferAll'])->name('AllOffers');
+
 Route::get('/jobs', [EmploiController::class, 'publishOffer'])->middleware(['auth', 'entreprise'])->name('jobs');
 Route::post('/jobs', [EmploiController::class, 'storePublishOffer'])->name('jobs.store');
 
@@ -38,6 +39,12 @@ Route::post('/jobs', [EmploiController::class, 'storePublishOffer'])->name('jobs
 Route::get('/cvs', [CvController::class, 'createCV'])->middleware(['auth', 'chercheur'])->name('cvs');
 Route::post('/cvs', [CvController::class, 'storeCV'])->name('cvs.store');
 Route::get('/download', [CVController::class, 'downloadCv'])->middleware(['auth', 'chercheur'])->name('downloadCv');
+Route::post('/postuler/{emploi}', [EmploiController::class, 'postuler'])->name('postuler');
+
+// Route::get('/search', [EmploiController::class, 'searchEmploi'])->name('offers.search');
+
+
+
 
 
 Route::get('/about', [ChercheurController::class, 'about'])->middleware(['auth', 'chercheur'])->name('about');

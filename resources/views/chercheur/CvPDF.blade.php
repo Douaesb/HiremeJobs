@@ -1,4 +1,4 @@
-<x-app-layout>
+{{-- <x-app-layout> --}}
 <div class="flex justify-center" >
     <div class="mt-4 bg-white w-96 h-96 rounded-lg h-full hidden" id="CvCard">
         <div class="flex p-2 gap-1">
@@ -41,4 +41,4 @@
         </div>
     </div>
 </div>
-</x-app-layout>
+{{-- </x-app-layout> --}}
