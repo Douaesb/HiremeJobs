@@ -25,20 +25,6 @@ class EmploiController extends Controller
     //     return view('jobOffers', ['offers' => $offers]);
     // }
 
-    // public function publishOfferAll(Request $request)
-    // {
-    //     $query = Emploi::with('entreprise')->orderBy('created_at', 'desc');
-
-    //     if ($request->has('search')) {
-    //         $search = $request->input('search');
-    //         $query->where('titre', 'like', "%$search%");
-    //     }
-
-    //     $offers = $query->get();
-    //     // dd($query, $offers);
-
-    //     return view('jobOffers', ['offers' => $offers]);
-    // }
 
     public function publishOfferAll(Request $request)
 {
@@ -118,6 +104,21 @@ class EmploiController extends Controller
 
 //     return view('jobOffers', ['results' => $results]);
 // }
+
+
+public function viewCandidats(){
+
+    $entreprise = auth()->user();
+
+    $emploi = Emploi::where('user_id', $entreprise->id)
+        ->with('chercheurs')
+        ->get();
+
+        return view('entreprise.candidatures', ['emploi' => $emploi]);
+    }
+
+
+
 
     public function postuler(Request $request, Emploi $emploi)
     {
