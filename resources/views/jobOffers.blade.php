@@ -76,6 +76,11 @@
                                         <h3 class="mb-4 text-xl font-bold text-black sm:text-2xl lg:text-xl xl:text-2xl">
                                             {{ $offer->titre }}</h3>
                                         <p class="text-base font-medium text-body-color">{{ $offer->description }}</p>
+                                        @foreach (json_decode($offer->competences) as $competence)
+                                            <li class="list-disc p-1">{{ $competence }}</li>
+                                        @endforeach
+                                        <p class="text-base font-medium text-body-color">{{ $offer->type_contrat }}</p>
+                                        <p class="text-base font-medium text-body-color">{{ $offer->emplacement }}</p>
                                         <p class="text-sm text-gray-600">Published by: {{ $offer->entreprise->name }}
                                         </p>
                                         <p class="text-sm text-gray-600">Email: {{ $offer->entreprise->email }}</p>

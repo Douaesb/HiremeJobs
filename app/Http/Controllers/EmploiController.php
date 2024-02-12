@@ -25,20 +25,46 @@ class EmploiController extends Controller
     //     return view('jobOffers', ['offers' => $offers]);
     // }
 
+    // public function publishOfferAll(Request $request)
+    // {
+    //     $query = Emploi::with('entreprise')->orderBy('created_at', 'desc');
+
+    //     if ($request->has('search')) {
+    //         $search = $request->input('search');
+    //         $query->where('titre', 'like', "%$search%");
+    //     }
+
+    //     $offers = $query->get();
+    //     // dd($query, $offers);
+
+    //     return view('jobOffers', ['offers' => $offers]);
+    // }
+
     public function publishOfferAll(Request $request)
-    {
-        $query = Emploi::with('entreprise')->orderBy('created_at', 'desc');
+{
+    $query = Emploi::with('entreprise')->orderBy('created_at', 'desc');
 
-        if ($request->has('search')) {
-            $search = $request->input('search');
-            $query->where('titre', 'like', "%$search%");
-        }
+    if ($request->filled('search')) {
+        $search = $request->input('search');
+        $query->where(function ($q) use ($search) {
+            $q->where('titre', 'like', "%$search%")
+                ->orWhere('competences', 'like', "%$search%");
 
-        $offers = $query->get();
-        // dd($query, $offers);
+            // Iterate over all properties in the objects within the "competences" array
+            $q->orWhere(function ($inner) use ($search) {
+                $inner->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(competences, '$[*]')) LIKE ?", ["%$search%"]);
+            });
 
-        return view('jobOffers', ['offers' => $offers]);
+            $q->orWhere('type_contrat', 'like', "%$search%")
+                ->orWhere('emplacement', 'like', "%$search%");
+        });
     }
+
+    $offers = $query->get();
+
+    return view('jobOffers', ['offers' => $offers]);
+}
+
 
 
     public function publishOffer()
