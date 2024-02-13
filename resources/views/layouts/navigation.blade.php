@@ -35,9 +35,9 @@
                     <x-nav-link :href="route('entreprises')" :active="request()->routeIs('entreprises')">
                         {{ __('Companies') }}
                     </x-nav-link>
-                    {{-- <x-nav-link :href="route('chercheurs')" :active="request()->routeIs('chercheurs')">
+                    <x-nav-link :href="route('chercheurs')" :active="request()->routeIs('chercheurs')">
                         {{ __('Job Seekers') }}
-                    </x-nav-link> --}}
+                    </x-nav-link>
                     <x-nav-link :href="route('AllOffers')" :active="request()->routeIs('AllOffers')">
                         {{ __('job Offers') }}
                     </x-nav-link>

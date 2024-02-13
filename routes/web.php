@@ -61,12 +61,12 @@ Route::get('/archive-entreprise/{userId}', [EntrepriseController::class, 'archiv
 Route::get('/archive-offer/{offerId}', [EmploiController::class, 'archiverOffer'])->middleware(['auth', 'admin'])->name('archive.offer');
 
 
-Route::get('/archive', [HomeController::class, 'archive'])->middleware(['auth', 'admin'])->name('archive');
-// Route::get('/archive/{userId}', [ChercheurController::class, 'archiverChercheur'])->middleware(['auth', 'admin'])->name('archive.chercheur');
+Route::get('/archive-chercheur/{userId}', [ChercheurController::class, 'archiverChercheur'])->middleware(['auth', 'admin'])->name('archive.chercheur');
 
 
 
-Route::get('/entreprises', [EntrepriseController::class, 'AfficheEntreprises'])->middleware(['auth', 'admin'])->name('entreprises');
+Route::get('/entreprises', [EntrepriseController::class, 'AfficheEntreprises'])->name('entreprises');
+Route::get('/chercheurs', [ChercheurController::class, 'Affichechercheurs'])->middleware(['auth', 'admin'])->name('chercheurs');
 
 
 

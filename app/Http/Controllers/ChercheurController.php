@@ -17,14 +17,23 @@ class ChercheurController extends Controller
         return view('chercheur.profile', ['user' => $user]);
     }
 
-    // public function archiverChercheur($userId){
-    //     $Chercheur = User::find($userId);
 
-    //     if ($Chercheur) {
-    //         $Chercheur->update(['archive' => 1]);
-    //     }
 
-    //     return redirect()->back()->with('success', 'Chercheur archived successfully');
+    public function AfficheChercheurs(){
+        $chercheurs = User::where("role","=","chercheur")
+        ->whereNull('archive')->get();
+        return view('admin.chercheurs',compact('chercheurs'));
+    }
+
+
+    public function archiverChercheur($userId){
+        $Chercheur = User::find($userId);
+
+        if ($Chercheur) {
+            $Chercheur->update(['archive' => 1]);
+        }
+
+        return redirect()->back()->with('success', 'Chercheur archived successfully');
    
-    // }
+    }
 }

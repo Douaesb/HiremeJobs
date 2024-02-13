@@ -11,11 +11,26 @@ class EntrepriseController extends Controller
         return view('entreprise.offre');
     }
 
-    public function AfficheEntreprises(){
-        $entreprises = User::where("role","=","entreprise")
-        ->whereNull('archive')->get();
-        return view('admin.entreprises',compact('entreprises'));
+    public function AfficheEntreprises(Request $request)
+    {
+        $query = User::where("role", "=", "entreprise")
+            ->whereNull('archive');
+    
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('titre', 'like', "%$search%")
+                    ->orWhere('industrie', 'like', "%$search%")
+                    ->orWhere('name', 'like', "%$search%")
+                    ->orWhere('description', 'like', "%$search%");
+            });
+        }
+    
+        $entreprises = $query->get();
+    
+        return view('entreprises', compact('entreprises'));
     }
+    
 
     public function archiverEntreprise($userId){
         $entreprise = User::find($userId);
