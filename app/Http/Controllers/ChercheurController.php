@@ -16,4 +16,15 @@ class ChercheurController extends Controller
         $user = Auth::user();
         return view('chercheur.profile', ['user' => $user]);
     }
+
+    // public function archiverChercheur($userId){
+    //     $Chercheur = User::find($userId);
+
+    //     if ($Chercheur) {
+    //         $Chercheur->update(['archive' => 1]);
+    //     }
+
+    //     return redirect()->back()->with('success', 'Chercheur archived successfully');
+   
+    // }
 }

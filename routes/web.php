@@ -5,8 +5,13 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EmploiController;
 use App\Http\Controllers\CvController;
 use App\Http\Controllers\ChercheurController;
+use App\Http\Controllers\EntrepriseController;
+
+
 
 use App\Http\Middleware\Chercheur;
+use App\Http\Middleware\Entreprise;
+use App\Models\Emploi;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,9 +57,17 @@ Route::post('/postuler/{emploi}', [EmploiController::class, 'postuler'])->name('
 Route::get('/profileUser', [ChercheurController::class, 'profileUser'])->middleware(['auth', 'chercheur'])->name('profileUser');
 
 
+Route::get('/archive-entreprise/{userId}', [EntrepriseController::class, 'archiverEntreprise'])->middleware(['auth', 'admin'])->name('archive.entreprise');
+Route::get('/archive-offer/{offerId}', [EmploiController::class, 'archiverOffer'])->middleware(['auth', 'admin'])->name('archive.offer');
 
 
 Route::get('/archive', [HomeController::class, 'archive'])->middleware(['auth', 'admin'])->name('archive');
+// Route::get('/archive/{userId}', [ChercheurController::class, 'archiverChercheur'])->middleware(['auth', 'admin'])->name('archive.chercheur');
+
+
+
+Route::get('/entreprises', [EntrepriseController::class, 'AfficheEntreprises'])->middleware(['auth', 'admin'])->name('entreprises');
+
 
 
 Route::middleware('auth')->group(function () {

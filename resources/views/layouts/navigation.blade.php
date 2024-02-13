@@ -21,9 +21,6 @@
                     <x-nav-link :href="route('jobs')" :active="request()->routeIs('jobs')">
                         {{ __('Job Offers') }}
                     </x-nav-link>
-                    {{-- <x-nav-link :href="route('candidats')" :active="request()->routeIs('candidats')">
-                        {{ __('Candidatures') }}
-                    </x-nav-link> --}}
                     @elseif(auth()->user()->role === 'chercheur')
                     <x-nav-link :href="route('cvs')" :active="request()->routeIs('cvs')">
                         {{ __('Curriculum Vitae') }}
@@ -33,6 +30,16 @@
                     </x-nav-link>
                     <x-nav-link :href="route('profileUser')" :active="request()->routeIs('profileUser')">
                         {{ __('Profile') }}
+                    </x-nav-link>
+                    @elseif(auth()->user()->role === 'admin')
+                    <x-nav-link :href="route('entreprises')" :active="request()->routeIs('entreprises')">
+                        {{ __('Companies') }}
+                    </x-nav-link>
+                    {{-- <x-nav-link :href="route('chercheurs')" :active="request()->routeIs('chercheurs')">
+                        {{ __('Job Seekers') }}
+                    </x-nav-link> --}}
+                    <x-nav-link :href="route('AllOffers')" :active="request()->routeIs('AllOffers')">
+                        {{ __('job Offers') }}
                     </x-nav-link>
                     @endif
                     @endauth

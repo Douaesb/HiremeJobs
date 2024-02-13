@@ -27,29 +27,28 @@ class EmploiController extends Controller
 
 
     public function publishOfferAll(Request $request)
-{
-    $query = Emploi::with('entreprise')->orderBy('created_at', 'desc');
+    {
+        $query = Emploi::with('entreprise')->orderBy('created_at', 'desc');
 
-    if ($request->filled('search')) {
-        $search = $request->input('search');
-        $query->where(function ($q) use ($search) {
-            $q->where('titre', 'like', "%$search%")
-                ->orWhere('competences', 'like', "%$search%");
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('titre', 'like', "%$search%")
+                    ->orWhere('competences', 'like', "%$search%");
+                $q->orWhere(function ($inner) use ($search) {
+                    $inner->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(competences, '$[*]')) LIKE ?", ["%$search%"]);
+                });
 
-            // Iterate over all properties in the objects within the "competences" array
-            $q->orWhere(function ($inner) use ($search) {
-                $inner->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(competences, '$[*]')) LIKE ?", ["%$search%"]);
+                $q->orWhere('type_contrat', 'like', "%$search%")
+                    ->orWhere('emplacement', 'like', "%$search%");
             });
+        }
 
-            $q->orWhere('type_contrat', 'like', "%$search%")
-                ->orWhere('emplacement', 'like', "%$search%");
-        });
+        $query->whereNull('archive');
+        $offers = $query->get();
+
+        return view('jobOffers', ['offers' => $offers]);
     }
-
-    $offers = $query->get();
-
-    return view('jobOffers', ['offers' => $offers]);
-}
 
 
 
@@ -58,7 +57,8 @@ class EmploiController extends Controller
         $user = Auth::user();
 
         $offers = Emploi::with('entreprise')
-            ->where('user_id', $user->id)
+            ->whereNull('archive')
+            ->orwhere('user_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->get();
         return view('entreprise.offre', ['offers' => $offers]);
@@ -97,33 +97,46 @@ class EmploiController extends Controller
         }
     }
 
-//     public function searchEmploi(Request $request)
-// {
-//     $search = $request->input('search');
-//     $results = Emploi::where('titre', 'like', "%$search%")->get();
+    //     public function searchEmploi(Request $request)
+    // {
+    //     $search = $request->input('search');
+    //     $results = Emploi::where('titre', 'like', "%$search%")->get();
 
-//     return view('jobOffers', ['results' => $results]);
-// }
-
-
-// public function viewCandidats(){
-
-//     $entreprise = auth()->user();
-
-//     $emploi = Emploi::where('user_id', $entreprise->id)
-//         ->with('chercheurs')
-//         ->get();
-
-//         return view('entreprise.candidatures', ['emploi' => $emploi]);
-//     }
+    //     return view('jobOffers', ['results' => $results]);
+    // }
 
 
-public function viewCandidats($offreId)
-{
-    $emploi = Emploi::with('chercheurs')->find($offreId);
+    // public function viewCandidats(){
 
-    return view('entreprise.candidatures', ['emploi' => $emploi]);
-}
+    //     $entreprise = auth()->user();
+
+    //     $emploi = Emploi::where('user_id', $entreprise->id)
+    //         ->with('chercheurs')
+    //         ->get();
+
+    //         return view('entreprise.candidatures', ['emploi' => $emploi]);
+    //     }
+
+
+    public function viewCandidats($offreId)
+    {
+        $emploi = Emploi::with('chercheurs')->find($offreId);
+
+        return view('entreprise.candidatures', ['emploi' => $emploi]);
+    }
+    
+    public function archiverOffer($offerId)
+    {
+        $offer = Emploi::find($offerId);
+
+        if ($offer) {
+            $offer->update(['archive' => 1]);
+            return redirect()->back()->with('success', 'Offer archived successfully');
+        }
+
+        return redirect()->back()->with('error', 'Offer not found');
+    }
+
 
 
 

@@ -18,6 +18,7 @@ class Emploi extends Model
         'competences',
         'type_contrat',
         'emplacement',
+        'archive',
         'user_id',
     ];
 
