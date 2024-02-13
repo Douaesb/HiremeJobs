@@ -106,17 +106,24 @@ class EmploiController extends Controller
 // }
 
 
-public function viewCandidats(){
+// public function viewCandidats(){
 
-    $entreprise = auth()->user();
+//     $entreprise = auth()->user();
 
-    $emploi = Emploi::where('user_id', $entreprise->id)
-        ->with('chercheurs')
-        ->get();
+//     $emploi = Emploi::where('user_id', $entreprise->id)
+//         ->with('chercheurs')
+//         ->get();
 
-        return view('entreprise.candidatures', ['emploi' => $emploi]);
-    }
+//         return view('entreprise.candidatures', ['emploi' => $emploi]);
+//     }
 
+
+public function viewCandidats($offreId)
+{
+    $emploi = Emploi::with('chercheurs')->find($offreId);
+
+    return view('entreprise.candidatures', ['emploi' => $emploi]);
+}
 
 
 

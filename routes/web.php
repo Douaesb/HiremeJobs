@@ -33,7 +33,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/jobOffers', [EmploiController::class, 'publishOfferAll'])->name('AllOffers');
 
 Route::get('/jobs', [EmploiController::class, 'publishOffer'])->middleware(['auth', 'entreprise'])->name('jobs');
-Route::get('/candidats', [EmploiController::class, 'viewCandidats'])->middleware(['auth', 'entreprise'])->name('candidats');
+Route::get('/candidats/{offreId}', [EmploiController::class, 'viewCandidats'])->middleware(['auth', 'entreprise'])->name('candidats');
 
 Route::post('/jobs', [EmploiController::class, 'storePublishOffer'])->name('jobs.store');
 

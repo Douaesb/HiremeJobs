@@ -21,9 +21,9 @@
                     <x-nav-link :href="route('jobs')" :active="request()->routeIs('jobs')">
                         {{ __('Job Offers') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('candidats')" :active="request()->routeIs('candidats')">
+                    {{-- <x-nav-link :href="route('candidats')" :active="request()->routeIs('candidats')">
                         {{ __('Candidatures') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
                     @elseif(auth()->user()->role === 'chercheur')
                     <x-nav-link :href="route('cvs')" :active="request()->routeIs('cvs')">
                         {{ __('Curriculum Vitae') }}

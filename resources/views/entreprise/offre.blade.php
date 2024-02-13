@@ -19,7 +19,8 @@
                             <div
                                 class="mb-9 bg-purple-100 rounded-xl py-8 px-7 shadow-md transition-all hover:shadow-lg sm:p-9 lg:px-6 xl:px-9">
                                 <div class="mx-auto mb-7 inline-block w-8">
-                                    <img src="{{ asset($offer->entreprise->photo) }}" alt="{{ $offer->entreprise->name }}">
+                                    <img src="{{ asset($offer->entreprise->photo) }}"
+                                        alt="{{ $offer->entreprise->name }}">
                                 </div>
 
                                 {{-- <svg width="53" height="61"
@@ -37,6 +38,9 @@
                                     <p class="text-sm text-gray-600">Published by: {{ $offer->entreprise->name }}
                                     </p>
                                     <p class="text-sm text-gray-600">Email: {{ $offer->entreprise->email }}</p>
+                                    <button>
+                                        <a href="{{route('candidats', ['offreId' => $offer->id])}}">Voir Candidatures</a>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -152,7 +156,7 @@
         function addInput() {
             var newInput = document.createElement("input");
             newInput.type = "text";
-            newInput.name = "competences[]"; 
+            newInput.name = "competences[]";
             newInput.className =
                 "bg-gray-50 border border-gray-300 text-gray-900 text-sm  mb-2 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-80 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500";
             newInput.placeholder = "Entrer le competences d'emploi";
