@@ -49,8 +49,8 @@
                                         class="bg-purple-400 w-24 text-white hover:bg-purple-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Search</button>
                                 </div>
                             </form>
-                        {{-- </div>
-                        @if (session('success'))
+                        </div>
+                        {{-- @if (session('success'))
                             <div class="alert alert-success">
                                 {{ session('success') }}
                             </div>
