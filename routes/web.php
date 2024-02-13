@@ -49,7 +49,7 @@ Route::post('/postuler/{emploi}', [EmploiController::class, 'postuler'])->name('
 
 
 
-Route::get('/about', [ChercheurController::class, 'about'])->middleware(['auth', 'chercheur'])->name('about');
+Route::get('/profileUser', [ChercheurController::class, 'profileUser'])->middleware(['auth', 'chercheur'])->name('profileUser');
 
 
 

@@ -31,8 +31,8 @@
                     <x-nav-link :href="route('AllOffers')" :active="request()->routeIs('AllOffers')">
                         {{ __('Job Offers') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('about')" :active="request()->routeIs('about')">
-                        {{ __('A propos') }}
+                    <x-nav-link :href="route('profileUser')" :active="request()->routeIs('profileUser')">
+                        {{ __('Profile') }}
                     </x-nav-link>
                     @endif
                     @endauth
