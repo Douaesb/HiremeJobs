@@ -64,4 +64,9 @@ class User extends Authenticatable
     return $this->belongsToMany(Emploi::class, 'emploi_user')->withTimestamps();
 
     }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class, 'chercheur_id', 'id');
+    }
 }

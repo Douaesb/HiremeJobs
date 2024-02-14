@@ -34,7 +34,6 @@
                 <div class="-mx-4 flex flex-wrap p-8 gap-8">
 
                     @foreach ($entreprises as $entreprise)
-                    
                         <div
                             class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100">
                             <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
@@ -67,18 +66,25 @@
                                     </div>
                                 @elseif(auth()->user()->role === 'chercheur')
                                     <div>
-                                        {{-- <form action="/subscribe" method="POST">
+                                        <form action="{{ route('newsletter', ['entrepriseId' => $entreprise->id]) }}"
+                                            method="POST">
                                             @csrf
-                                                <input type="email" name="email" value="{{ auth()->user()->email }}" class="rounded-lg shadow-lg h-full w-full text-sm text-gray-700 border-0" readonly />
-                                            <button type="submit" class="bg-purple-600 w-fit text-white hover:bg-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Subscribe</button>
-                                        </form> --}}
-                                        <form action="{{ route('newsletter', ['entrepriseId' => $entreprise->id]) }}" method="POST">
-                                            @csrf
-                                            <input type="email" name="email" value="{{ auth()->user()->email }}" class="rounded-lg shadow-lg h-full w-full text-sm text-gray-700 border-0" readonly />
-                                            <button id="subscribeButton" class="bg-purple-600 w-fit text-white hover:bg-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit" {{ Newsletter::isSubscribed(auth()->user()->email) ? 'disabled' : '' }}>
-                                                {{ Newsletter::isSubscribed(auth()->user()->email) ? ' Subscribed' : 'Subscribe' }}
+                                            {{-- <input type="email" name="email" value="{{ auth()->user()->email }}"
+                                                class="rounded-lg shadow-lg h-full w-full text-sm text-gray-700 border-0"
+                                                readonly /> --}}
+
+                                            @php
+                                                $user = auth()->user()->load('subscriptions');
+                                                $subscription = $user->subscriptions->where('entreprise_id', $entreprise->id)->first();
+                                            @endphp
+
+                                            <button id="subscribeButton"
+                                                class=" w-fit text-white {{$subscription && $subscription->subscribed ? 'bg-red-500' : 'bg-purple-500'}}  font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                                type="submit"
+                                                {{ $subscription && $subscription->subscribed ? 'disabled' : '' }}>
+                                                {{ $subscription && $subscription->subscribed ? ' Subscribed' : 'Subscribe' }}
                                             </button>
-                                        </form>                                        
+                                        </form>
                                     </div>
                                 @endif
                             @endauth
