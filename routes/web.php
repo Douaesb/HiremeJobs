@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EmploiController;
 use App\Http\Controllers\CvController;
 use App\Http\Controllers\ChercheurController;
+use App\Http\Controllers\MailChimpController;
 use App\Http\Controllers\EntrepriseController;
 
 
@@ -35,6 +36,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+Route::post('/subscribe/{entrepriseId}',[MailChimpController::class, 'subscribe'])->name('newsletter');
 Route::get('/jobOffers', [EmploiController::class, 'publishOfferAll'])->name('AllOffers');
 
 Route::get('/jobs', [EmploiController::class, 'publishOffer'])->middleware(['auth', 'entreprise'])->name('jobs');

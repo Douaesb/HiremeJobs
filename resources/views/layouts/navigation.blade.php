@@ -31,6 +31,9 @@
                     <x-nav-link :href="route('profileUser')" :active="request()->routeIs('profileUser')">
                         {{ __('Profile') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('entreprises')" :active="request()->routeIs('entreprises')">
+                        {{ __('Companies') }}
+                    </x-nav-link>
                     @elseif(auth()->user()->role === 'admin')
                     <x-nav-link :href="route('entreprises')" :active="request()->routeIs('entreprises')">
                         {{ __('Companies') }}
