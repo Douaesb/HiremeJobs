@@ -7,14 +7,14 @@
 
                         <!-- top content -->
                         <div class="flex rounded-t-lg bg-top-color sm:px-2 w-full">
-                            <div class="w-40 overflow-hidden sm:rounded-full sm:relative sm:p-0 top-10 left-5 p-3">
-                                <img src="{{ asset($user->photo) }}" alt="{{ $user->name }}">
-                            </div>
+                            {{-- <div class="w-40 overflow-hidden sm:rounded-full sm:relative sm:p-0 top-10 left-5 p-3">
+                                <img src="{{ asset($cv->user->photo) }}" alt="{{ $cv->user->name }}">
+                            </div> --}}
 
                             <div class="w-2/3 sm:text-center pl-5 mt-10 text-start">
                                 <p class="font-poppins font-bold text-heading sm:text-4xl text-2xl">
-                                    {{ $user->name }} </p>
-                                <p class="text-heading">{{ $user->titre }} </p>
+                                    {{ $cv->user->name }} </p>
+                                <p class="text-heading">{{ $cv->user->titre }} </p>
                             </div>
 
                         </div>
@@ -34,35 +34,35 @@
                                             <div class="flex items-center my-1">
                                                 <a class="w-6 text-gray-700 hover:text-orange-600">
                                                 </a>
-                                                <div class=" truncate">{{ $user->email }} </div>
+                                                <div class=" truncate">{{ $cv->user->email }} </div>
                                             </div>
                                             <div class="flex items-center my-1">
                                                 <a class="w-6 text-gray-700 hover:text-orange-600"
                                                     aria-label="Visit TrendyMinds YouTube" href=""
                                                     target="_blank">
                                                 </a>
-                                                <div>0{{ $user->tel }} </div>
+                                                <div>0{{ $cv->user->tel }} </div>
                                             </div>
                                             <div class="flex items-center my-1">
                                                 <a class="w-6 text-gray-700 hover:text-orange-600"
                                                     aria-label="Visit TrendyMinds Facebook" href=""
                                                     target="_blank">
                                                 </a>
-                                                <div>{{ $user->industrie }} </div>
+                                                <div>{{ $cv->user->industrie }} </div>
                                             </div>
                                             <div class="flex items-center my-1">
                                                 <a class="w-6 text-gray-700 hover:text-orange-600"
                                                     aria-label="Visit TrendyMinds Twitter" href=""
                                                     target="_blank">
                                                 </a>
-                                                <div>{{ $user->poste }} </div>
+                                                <div>{{ $cv->user->poste }} </div>
                                             </div>
                                             <div class="flex items-center my-1">
                                                 <a class="w-6 text-gray-700 hover:text-orange-600"
                                                     aria-label="Visit TrendyMinds Twitter" href=""
                                                     target="_blank">
                                                 </a>
-                                                <div>{{ $user->adresse }} </div>
+                                                <div>{{ $cv->user->adresse }} </div>
                                             </div>
 
                                         </div>
@@ -75,8 +75,8 @@
                                         <div>
                                             <div class="flex flex-col my-1">
 
-                                                @if ($user->cv)
-                                                    @foreach (json_decode($user->cv->competences) as $competence)
+                                                @if ($cv)
+                                                    @foreach (json_decode($cv->competences) as $competence)
                                                     <div class="flex">
 
                                                         <a class="w-6 text-gray-700 hover:text-orange-600"
@@ -138,8 +138,8 @@
 
                                             <div class="flex flex-col">
                                                 {{-- <p class="font-semibold text-xs text-gray-700">2021</p> --}}
-                                                @if ($user->cv)
-                                                    @foreach (json_decode($user->cv->langues) as $langue)
+                                                @if ($cv)
+                                                    @foreach (json_decode($cv->langues) as $langue)
                                                         <p class="text-lg font-medium text-green-700">
                                                             {{ $langue }}
                                                         </p>
@@ -165,7 +165,7 @@
                                     <div class="py-3">
                                         <h2 class="text-lg text-blue-500  font-poppins font-bold text-top-color">About Me</h2>
                                         <div class="border-2 w-20 border-blue-500 my-3"></div>
-                                        <p>{{ $user->description }} </p>
+                                        <p>{{ $cv->user->description }} </p>
                                     </div>
 
                                     <!-- Professional Experience -->
@@ -182,8 +182,8 @@
                                                 {{-- <p class="font-semibold text-sm text-gray-700">2021 - Present</p> --}}
 
                                                 <ul class="text-sm list-disc pl-4 space-y-1">
-                                                    @if ($user->cv)
-                                                        @foreach (json_decode($user->cv->experiences) as $experience)
+                                                    @if ($cv)
+                                                        @foreach (json_decode($cv->experiences) as $experience)
                                                             <li class="list-disc p-1">{{ $experience }}</li>
                                                         @endforeach
                                                     @else
@@ -205,8 +205,8 @@
 
                                         <div class="flex flex-col">
                                             <div class="flex flex-col">
-                                                @if ($user->cv)
-                                                    @foreach (json_decode($user->cv->cursus) as $cursuss)
+                                                @if ($cv)
+                                                    @foreach (json_decode($cv->cursus) as $cursuss)
                                                         <p class="text-lg font-semibold text-gray-700">
                                                             {{ $cursuss }}
                                                         </p>

@@ -62,7 +62,7 @@ class CvController extends Controller
     {
         $cv = CV::where('user_id', auth()->id())->firstOrFail();
 
-        $pdf = FacadePdf::loadView('chercheur.CvPDF', compact('cv'));
+        $pdf = FacadePdf::loadView('chercheur.profilePDF', compact('cv'));
 
         return $pdf->download('your_cv.pdf');
     }
