@@ -26,14 +26,14 @@
                             <div class="bg-white overflow-hidden shadow sm:rounded-lg">
                                 <div class="px-4 py-5 sm:p-6">
                                     <dl>
-                                        <dt class="text-sm leading-5 font-medium text-gray-500 truncate">Total
-                                            entreprises</dt>
-                                        <dd class="mt-1 text-3xl leading-9 font-semibold text-indigo-600">
-                                            {{ $entrepriseCount }}</dd>
+                                        <dt class="text-sm leading-5 font-medium text-gray-500 truncate">Top entreprise
+                                        </dt>
+                                        <dd class="mt-1 text-2xl leading-9 font-semibold text-indigo-600">
+                                            {{ $topEntreprise }}</dd>
                                     </dl>
                                 </div>
                             </div>
-                            <div class="bg-white overflow-hidden shadow sm:rounded-lg">
+                           <div class="bg-white overflow-hidden shadow sm:rounded-lg">
                                 <div class="px-4 py-5 sm:p-6">
                                     <dl>
                                         <dt class="text-sm leading-5 font-medium text-gray-500 truncate">Total job
@@ -46,30 +46,32 @@
                             <div class="bg-white overflow-hidden shadow sm:rounded-lg">
                                 <div class="px-4 py-5 sm:p-6">
                                     <dl>
-                                        <dt class="text-sm leading-5 font-medium text-gray-500 truncate">Total users
-                                        </dt>
-                                        <dd class="mt-1 text-3xl leading-9 font-semibold text-indigo-600">
-                                            {{ $userCount }}</dd>
-                                    </dl>
-                                </div>
-                            </div>
-                            <div class="bg-white overflow-hidden shadow sm:rounded-lg">
-                                <div class="px-4 py-5 sm:p-6">
-                                    <dl>
                                         <dt class="text-sm leading-5 font-medium text-gray-500 truncate">Top entreprise
+                                            subscriber
                                         </dt>
                                         <dd class="mt-1 text-2xl leading-9 font-semibold text-indigo-600">
-                                            {{ $topEntreprise }}</dd>
+                                            {{ $topEntrepriseSubscriber }}</dd>
                                     </dl>
                                 </div>
                             </div>
                             <div class="bg-white overflow-hidden shadow sm:rounded-lg">
                                 <div class="px-4 py-5 sm:p-6">
                                     <dl>
+
                                         <dt class="text-sm leading-5 font-medium text-gray-500 truncate">Top applicant
                                         </dt>
                                         <dd class="mt-1 text-2xl leading-9 font-semibold text-indigo-600">
                                             {{ $topApplicant }}</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="bg-white overflow-hidden shadow sm:rounded-lg">
+                                <div class="px-4 py-5 sm:p-6">
+                                    <dl>
+                                        <dt class="text-sm leading-5 font-medium text-gray-500 truncate">Total
+                                            entreprises</dt>
+                                        <dd class="mt-1 text-3xl leading-9 font-semibold text-indigo-600">
+                                            {{ $entrepriseCount }}</dd>
                                     </dl>
                                 </div>
                             </div>
@@ -86,10 +88,10 @@
                             <div class="bg-white overflow-hidden shadow sm:rounded-lg">
                                 <div class="px-4 py-5 sm:p-6">
                                     <dl>
-                                        <dt class="text-sm leading-5 font-medium text-gray-500 truncate">Top entreprise subscriber
+                                        <dt class="text-sm leading-5 font-medium text-gray-500 truncate">Total users
                                         </dt>
-                                        <dd class="mt-1 text-2xl leading-9 font-semibold text-indigo-600">
-                                            {{ $topEntrepriseSubscriber }}</dd>
+                                        <dd class="mt-1 text-3xl leading-9 font-semibold text-indigo-600">
+                                            {{ $userCount }}</dd>
                                     </dl>
                                 </div>
                             </div>
