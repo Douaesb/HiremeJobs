@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="-mx-4 flex flex-wrap p-8">
-                    @foreach ($entreprise->emplois as $emploi)
+                    @foreach ($entreprise->offers as $emploi)
                         <div class="px-4 md:w-1/2 lg:w-1/3">
                             <div
                                 class="mb-9 bg-purple-100 rounded-xl py-8 px-7 shadow-md transition-all hover:shadow-lg sm:p-9 lg:px-6 xl:px-9">

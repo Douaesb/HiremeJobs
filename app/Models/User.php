@@ -59,12 +59,15 @@ class User extends Authenticatable
         return $this->hasOne(CV::class);
     }
 
-    public function emplois() {
-        if ($this->role === 'entreprise') {
-            return $this->hasMany(Emploi::class, 'user_id');
-        } elseif ($this->role === 'chercheur') {
-            return $this->belongsToMany(Emploi::class, 'emploi_user');
-        }
+    public function emplois()
+    {
+    return $this->belongsToMany(Emploi::class, 'emploi_user')->withTimestamps();
+
+    }
+    public function offers()
+    {
+        return $this->hasMany(Emploi::class, 'user_id');
+
     }
 
     public function subscriptions()
