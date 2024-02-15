@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Emploi;
 use App\Models\User;
+use App\Models\EmploiUser;
 
 
 
@@ -145,16 +146,38 @@ class EmploiController extends Controller
     }
 
 
-    public function postuler(Request $request, Emploi $emploi)
-    {
-        $user = auth()->user();
+    // public function postuler(Request $request, Emploi $emploi)
+    // {
+    //     $user = auth()->user();
 
-        if ($user->emplois->contains($emploi)) {
-            return redirect()->route('AllOffers')->with('error', 'You have already applied for this job.');
-        }
+    //     if ($user->emplois->contains($emploi)) {
+    //         return redirect()->route('AllOffers')->with('error', 'You have already applied for this job.');
+    //     }
 
-        $user->emplois()->attach($emploi);
+    //     $user->emplois()->attach($emploi);
+
+    //     return redirect()->route('AllOffers')->with('success', 'Application successful!');
+    // }
+
+
+
+public function postuler(Request $request, Emploi $emploi)
+{
+    $user = auth()->user();
+    $existingApplication = EmploiUser::where('user_id', $user->id)
+        ->where('emploi_id', $emploi->id)
+        ->first();
+
+    if (!$existingApplication) {
+        EmploiUser::create([
+            'user_id' => $user->id,
+            'emploi_id' => $emploi->id,
+        ]);
 
         return redirect()->route('AllOffers')->with('success', 'Application successful!');
     }
+
+    return redirect()->route('AllOffers')->with('error', 'You have already applied for this job.');
+}
+
 }

@@ -108,7 +108,7 @@
                                         @auth
                                             @if (auth()->user()->role === 'chercheur')
                                                 <div class="flex justify-center mt-4">
-                                                    <form id="applicationForm" action="{{ route('postuler', $offer) }}"
+                                                    <form id="applicationForm" action="{{ route('postuler', $offer->id) }}"
                                                         method="post">
                                                         @csrf
                                                         <div class="flex justify-center mt-4">
