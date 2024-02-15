@@ -137,7 +137,12 @@ class EmploiController extends Controller
         return redirect()->back()->with('error', 'Offer not found');
     }
 
-
+    
+    public function EntrepriseOffers($entrepriseId){
+        $entreprise=User::find($entrepriseId);
+        $emplois = $entreprise->emplois;
+        return view('chercheur.entrepriseOffers', compact('entreprise', 'emplois'));
+    }
 
 
     public function postuler(Request $request, Emploi $emploi)

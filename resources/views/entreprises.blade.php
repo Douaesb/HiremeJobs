@@ -36,7 +36,7 @@
                     @foreach ($entreprises as $entreprise)
                         <div
                             class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100">
-                            <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
+                            <img class="object-cover w-full rounded-t-lg h-[250px] md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
                                 src={{ $entreprise->photo }} alt="">
                             <div class="flex flex-col justify-between p-4 leading-normal">
                                 <div class="flex justify-center">
@@ -77,13 +77,22 @@
                                                 $user = auth()->user()->load('subscriptions');
                                                 $subscription = $user->subscriptions->where('entreprise_id', $entreprise->id)->first();
                                             @endphp
+                                            <div class="flex md:flex-col gap-32 mr-4 ml-4 mb-2 justify-between">
 
-                                            <button id="subscribeButton"
-                                                class=" w-fit text-white {{$subscription && $subscription->subscribed ? 'bg-red-500' : 'bg-purple-500'}}  font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                                                type="submit"
-                                                {{ $subscription && $subscription->subscribed ? 'disabled' : '' }}>
-                                                {{ $subscription && $subscription->subscribed ? ' Subscribed' : 'Subscribe' }}
-                                            </button>
+                                                <button id="subscribeButton"
+                                                    class=" w-fit text-white {{ $subscription && $subscription->subscribed ? 'bg-red-500' : 'bg-purple-500' }}  font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                                    type="submit"
+                                                    {{ $subscription && $subscription->subscribed ? 'disabled' : '' }}>
+                                                    {{ $subscription && $subscription->subscribed ? ' Subscribed' : 'Subscribe' }}
+                                                </button>
+                                                <button
+                                                    class="block text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                    <a
+                                                        href="{{ route('offre.entreprise', ['entrepriseId' => $entreprise->id]) }}">Voir
+                                                        ses Offres</a>
+                                                </button>
+                                            </div>
+
                                         </form>
                                     </div>
                                 @endif

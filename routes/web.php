@@ -50,7 +50,7 @@ Route::post('/cvs', [CvController::class, 'storeCV'])->name('cvs.store');
 Route::get('/download', [CVController::class, 'downloadCv'])->middleware(['auth', 'chercheur'])->name('downloadCv');
 Route::post('/postuler/{emploi}', [EmploiController::class, 'postuler'])->name('postuler');
 
-// Route::get('/search', [EmploiController::class, 'searchEmploi'])->name('offers.search');
+Route::get('/EntrepriseOffers/{entrepriseId}', [EmploiController::class, 'EntrepriseOffers'])->name('offre.entreprise');
 
 
 
