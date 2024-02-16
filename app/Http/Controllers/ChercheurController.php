@@ -22,7 +22,6 @@ class ChercheurController extends Controller
     public function AfficheChercheurs(){
         $chercheurs = User::where("role","=","chercheur")
         // ->whereNull('archive')
-        ->whereNull('deleted_at')
         ->get();
         return view('admin.chercheurs',compact('chercheurs'));
     }

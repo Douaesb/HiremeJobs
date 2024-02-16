@@ -45,7 +45,6 @@ class EmploiController extends Controller
             });
         }
 
-        $query->whereNull('deleted_at');
         // $query->whereNull('archive');
         $offers = $query->get();
 
@@ -59,7 +58,6 @@ class EmploiController extends Controller
         $user = Auth::user();
 
         $offers = Emploi::with('entreprise')
-            ->whereNull('deleted_at')
             // ->whereNull('archive')
             ->orwhere('user_id', $user->id)
             ->orderBy('created_at', 'desc')
@@ -132,8 +130,7 @@ class EmploiController extends Controller
     public function EntrepriseOffers($entrepriseId)
     {
         $entreprise = User::find($entrepriseId);
-        $emplois = $entreprise->emplois()
-            ->whereNull('deleted_at');
+        $emplois = $entreprise->emplois();
         return view('chercheur.entrepriseOffers', compact('entreprise', 'emplois'));
     }
 

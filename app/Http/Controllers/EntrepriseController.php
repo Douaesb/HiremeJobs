@@ -13,9 +13,9 @@ class EntrepriseController extends Controller
 
     public function AfficheEntreprises(Request $request)
     {
-        $query = User::where("role", "=", "entreprise")
+        $query = User::where("role", "=", "entreprise");
             // ->whereNull('archive');
-        ->whereNull('deleted_at');
+        
 
     
         if ($request->filled('search')) {
