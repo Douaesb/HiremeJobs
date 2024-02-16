@@ -71,8 +71,9 @@
                                     class="mb-9 bg-purple-100 rounded-xl py-8 px-7 shadow-md transition-all hover:shadow-lg sm:p-9 lg:px-6 xl:px-9">
                                     <div class="flex justify-between">
                                         <div class="w-8 mb-7">
-                                            <img src="{{ asset($offer->entreprise->photo) }}"
-                                                alt="{{ $offer->entreprise->name }}">
+                                            @if ($offer->entreprise)
+                                                <img src="{{ asset($offer->entreprise->photo) }}"
+                                                    alt="{{ $offer->entreprise->name }}">
                                         </div>
 
                                         <div>
@@ -88,47 +89,45 @@
                                             <p class="text-sm text-gray-600">Published by: {{ $offer->entreprise->name }}
                                             </p>
                                             <p class="text-sm text-gray-600">Email: {{ $offer->entreprise->email }}</p>
-                                            @auth
-                                                @if (auth()->user()->role === 'admin')
-                                                    <div class="flex flex-end justify-end">
-                                                        <a title="Archive"
-                                                            href="{{ route('archive.offer', ['offerId' => $offer->id]) }}">
-                                                            <svg class='h-5 w-5 text-red-500' fill='none' viewBox='0 0 24 24'
-                                                                stroke='currentColor'>
-                                                                <path stroke-linecap='round' stroke-linejoin='round'
-                                                                    stroke-width='2'
-                                                                    d='M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20' />
-                                                            </svg>
-                                                        </a>
-                                                    </div>
-                                                @endif
-                                            @endauth
-                                        </div>
+                        @endif
 
-                                        @auth
-                                            @if (auth()->user()->role === 'chercheur')
-                                                <div class="flex justify-center mt-4">
-                                                    <form id="applicationForm" action="{{ route('postuler', $offer->id) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        <div class="flex justify-center mt-4">
-                                                            <button id="postulerButton"
-                                                                class="text-white {{ auth()->user()->emplois->contains($offer) ? 'bg-red-500' : 'bg-purple-500' }}  font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                                                                type="submit"
-                                                                {{ auth()->user()->emplois->contains($offer) ? 'disabled' : '' }}>
-                                                                {{ auth()->user()->emplois->contains($offer) ? ' Applied' : 'Apply' }}
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            @endif
-                                        @endauth
-                                    </div>
+                        @auth
+                            @if (auth()->user()->role === 'admin')
+                                <div class="flex flex-end justify-end">
+                                    <a title="" href="{{ route('archive.offer', ['offerId' => $offer->id]) }}">
+                                        <svg class='h-5 w-5 text-red-500' fill='none' viewBox='0 0 24 24'
+                                            stroke='currentColor'>
+                                            <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2'
+                                                d='M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20' />
+                                        </svg>
+                                    </a>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endif
+                        @endauth
                     </div>
+
+                    @auth
+                        @if (auth()->user()->role === 'chercheur')
+                            <div class="flex justify-center mt-4">
+                                <form id="applicationForm" action="{{ route('postuler', $offer->id) }}" method="post">
+                                    @csrf
+                                    <div class="flex justify-center mt-4">
+                                        <button id="postulerButton"
+                                            class="text-white {{ auth()->user()->emplois->contains($offer) ? 'bg-red-500' : 'bg-purple-500' }}  font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                            type="submit" {{ auth()->user()->emplois->contains($offer) ? 'disabled' : '' }}>
+                                            {{ auth()->user()->emplois->contains($offer) ? ' Applied' : 'Apply' }}
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        @endif
+                    @endauth
                 </div>
             </div>
+        </div>
+        @endforeach
+        </div>
+        </div>
+        </div>
         </div>
     @endsection

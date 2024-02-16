@@ -45,7 +45,8 @@ class EmploiController extends Controller
             });
         }
 
-        $query->whereNull('archive');
+        $query->whereNull('deleted_at');
+        // $query->whereNull('archive');
         $offers = $query->get();
 
         return view('jobOffers', ['offers' => $offers]);
@@ -58,7 +59,8 @@ class EmploiController extends Controller
         $user = Auth::user();
 
         $offers = Emploi::with('entreprise')
-            ->whereNull('archive')
+            ->whereNull('deleted_at')
+            // ->whereNull('archive')
             ->orwhere('user_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->get();
@@ -98,26 +100,6 @@ class EmploiController extends Controller
         }
     }
 
-    //     public function searchEmploi(Request $request)
-    // {
-    //     $search = $request->input('search');
-    //     $results = Emploi::where('titre', 'like', "%$search%")->get();
-
-    //     return view('jobOffers', ['results' => $results]);
-    // }
-
-
-    // public function viewCandidats(){
-
-    //     $entreprise = auth()->user();
-
-    //     $emploi = Emploi::where('user_id', $entreprise->id)
-    //         ->with('chercheurs')
-    //         ->get();
-
-    //         return view('entreprise.candidatures', ['emploi' => $emploi]);
-    //     }
-
 
     public function viewCandidats($offreId)
     {
@@ -125,59 +107,53 @@ class EmploiController extends Controller
 
         return view('entreprise.candidatures', ['emploi' => $emploi]);
     }
-    
+
+    // public function archiverOffer($offerId)
+    // {
+    //     $offer = Emploi::find($offerId);
+
+    //     if ($offer) {
+    //         $offer->update(['archive' => 1]);
+    //         return redirect()->back()->with('success', 'Offer archived successfully');
+    //     }
+
+    //     return redirect()->back()->with('error', 'Offer not found');
+    // }
+
     public function archiverOffer($offerId)
     {
-        $offer = Emploi::find($offerId);
+        $offer = Emploi::findOrFail($offerId);
 
-        if ($offer) {
-            $offer->update(['archive' => 1]);
-            return redirect()->back()->with('success', 'Offer archived successfully');
-        }
+        $offer->delete();
 
-        return redirect()->back()->with('error', 'Offer not found');
+        return redirect()->back()->with('success', 'Record soft deleted successfully.');
     }
 
-    
-    public function EntrepriseOffers($entrepriseId){
-        $entreprise=User::find($entrepriseId);
-        $emplois = $entreprise->emplois;
+    public function EntrepriseOffers($entrepriseId)
+    {
+        $entreprise = User::find($entrepriseId);
+        $emplois = $entreprise->emplois()
+            ->whereNull('deleted_at');
         return view('chercheur.entrepriseOffers', compact('entreprise', 'emplois'));
     }
 
 
-    // public function postuler(Request $request, Emploi $emploi)
-    // {
-    //     $user = auth()->user();
+    public function postuler(Request $request, Emploi $emploi)
+    {
+        $user = auth()->user();
+        $existingApplication = EmploiUser::where('user_id', $user->id)
+            ->where('emploi_id', $emploi->id)
+            ->first();
 
-    //     if ($user->emplois->contains($emploi)) {
-    //         return redirect()->route('AllOffers')->with('error', 'You have already applied for this job.');
-    //     }
+        if (!$existingApplication) {
+            EmploiUser::create([
+                'user_id' => $user->id,
+                'emploi_id' => $emploi->id,
+            ]);
 
-    //     $user->emplois()->attach($emploi);
+            return redirect()->route('AllOffers')->with('success', 'Application successful!');
+        }
 
-    //     return redirect()->route('AllOffers')->with('success', 'Application successful!');
-    // }
-
-
-
-public function postuler(Request $request, Emploi $emploi)
-{
-    $user = auth()->user();
-    $existingApplication = EmploiUser::where('user_id', $user->id)
-        ->where('emploi_id', $emploi->id)
-        ->first();
-
-    if (!$existingApplication) {
-        EmploiUser::create([
-            'user_id' => $user->id,
-            'emploi_id' => $emploi->id,
-        ]);
-
-        return redirect()->route('AllOffers')->with('success', 'Application successful!');
+        return redirect()->route('AllOffers')->with('error', 'You have already applied for this job.');
     }
-
-    return redirect()->route('AllOffers')->with('error', 'You have already applied for this job.');
-}
-
 }

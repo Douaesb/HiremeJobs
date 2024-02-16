@@ -21,17 +21,18 @@ class ChercheurController extends Controller
 
     public function AfficheChercheurs(){
         $chercheurs = User::where("role","=","chercheur")
-        ->whereNull('archive')->get();
+        // ->whereNull('archive')
+        ->whereNull('deleted_at')
+        ->get();
         return view('admin.chercheurs',compact('chercheurs'));
     }
 
 
     public function archiverChercheur($userId){
-        $Chercheur = User::find($userId);
+        $Chercheur = User::findOrFail($userId);
 
-        if ($Chercheur) {
-            $Chercheur->update(['archive' => 1]);
-        }
+        $Chercheur->delete();
+
 
         return redirect()->back()->with('success', 'Chercheur archived successfully');
    

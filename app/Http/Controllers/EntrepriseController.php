@@ -14,7 +14,9 @@ class EntrepriseController extends Controller
     public function AfficheEntreprises(Request $request)
     {
         $query = User::where("role", "=", "entreprise")
-            ->whereNull('archive');
+            // ->whereNull('archive');
+        ->whereNull('deleted_at');
+
     
         if ($request->filled('search')) {
             $search = $request->input('search');
@@ -33,12 +35,8 @@ class EntrepriseController extends Controller
     
 
     public function archiverEntreprise($userId){
-        $entreprise = User::find($userId);
-
-        if ($entreprise) {
-            $entreprise->update(['archive' => 1]);
-        }
-
+        $entreprise = User::findOrFail($userId);
+        $entreprise->delete();
         return redirect()->back()->with('success', 'Entreprise archived successfully');
    
     }
